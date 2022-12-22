@@ -1,0 +1,60 @@
+mixin crearTicket(ticket = {})
+
+    form.vw-80.bg-gray-100.shadow-xl.rounded-md.mx-auto.my-4.py-6(action=`/tickets/nuevo-ticket/${ticket.Id || ''}` method="POST")
+        h3.text-center.text-2xl.font-bold.uppercase.mb-2 Información del ticket
+        .campo
+            label.uppercase(for="titulo") Tipo:
+            select.rounded-md(name="Tipo" id="Tipo") 
+                option(value="" selected="" hidden="") Seleccione el tipo
+                each tipo in types
+                    if tipo === ticket.Tipo 
+                        option(value= tipo selected="") #{tipo} 
+                    else
+                        option(value= tipo) #{tipo} 
+        .campo
+            label.uppercase(for="Titulo") Titulo:
+            input.rounded-md(type="text" id="Titulo" name="Titulo" placeholder="Ingresa el titulo" value= ticket.Titulo)
+        .campo
+            label.uppercase(for="Descripcion") Descripción:
+            textarea.rounded-md(cols="30" rows="5" type="text" id="Descripcion" name="Descripcion" placeholder="Ingresa la descripción")= ticket.Descripcion
+        if ticket.Estado
+            .campo
+                label.uppercase(for="Solucion") Solución:
+                textarea.rounded-md(cols="30" rows="5" type="text" id="Solucion" name="Solucion" placeholder="Ingresa la solución")= ticket.Solucion
+        .campo
+            label.uppercase(for="Categoria") Categoría: 
+            select.rounded-md(name="Categoria" id="Categoria")
+                option(value='' selected='' hidden='') Seleccion la categoría
+                each category in categories
+                    if category.Categoria === ticket.Categoria
+                        option(value= category.Categoria selected="") #{category.Categoria} 
+                    else 
+                        option(value= category.Categoria) #{category.Categoria} 
+        .campo.hidden
+            label.uppercase(for="Subcategoria") Subcategoria: 
+            select.rounded-md(name="Subcategoria" id="Subcategoria")
+                option(value='' selected='' hidden='') Seleccione la subcategoría
+                each subcategory in subcategories
+                    if subcategory.SubCategoria === ticket.Subcategoria 
+                        option(value= subcategory.SubCategoria data-category= subcategory.Categoria selected="") #{subcategory.SubCategoria}
+                    else 
+                        option(value= subcategory.SubCategoria data-category= subcategory.Categoria) #{subcategory.SubCategoria}
+        .campo
+            label.uppercase(for="Prioridad") Prioridad: 
+            select.rounded-md(name="Prioridad" id="Prioridad")
+                each urgency in urgencies
+                    if urgency === ticket.Prioridad 
+                        option(value= urgency selected="") #{urgency} 
+                    else
+                        option(value= urgency) #{urgency} 
+        if ticket.Estado 
+            .campo
+                label.uppercase(for="Estado") Estado:
+                select.rounded-md(name="Estado" id="Estado")
+                    each status in typeStatus
+                        if status === ticket.Estado
+                            option(value= status selected="") #{status}
+                        else 
+                            option(value= status) #{status}
+        .campo.enviar
+            input.bg-green-500.rounded-md(type="submit", value=`${ticket.Id ? 'Guardar' : 'Crear'}`)

@@ -1,0 +1,34 @@
+extends layout 
+
+block content
+      #container.px-6
+        .flex.justify-between.items-center.w-full.border-b-2.border-gray-500.mb-3
+          h1.font-bold.text-3xl.py-4 #{nombrePagina}
+          a.p-2.text-white.bg-gray-500.flex.items-center.gap-2.font-bold.rounded-md(href="/tickets") Volver
+            i.fa-solid.fa-arrow-left
+
+        if error
+            .w-96.m-auto.bg-red-300.text-center.px-4.py-2.my-2.border-2.border-red-500.font-bold.text-red-800.uppercase #{error}
+
+        if successful 
+            .m-auto.bg-green-300.text-center.px-4.py-2.my-2.border-2.border-green-500.font-bold.text-green-800.uppercase(class="w-[500px]") #{successful}
+       
+        form.vw-80.bg-gray-100.shadow-xl.rounded-md.mx-auto.my-4.py-6(action=`/tickets/cerrar-ticket/${ticket.Id}` method="POST")
+          h3.text-center.text-2xl.font-bold.uppercase.mb-2 Solución al ticket # #{ticket.Id}
+          .campo
+            label.uppercase(for="Solucion") Usuario:
+            input(type="text" value=ticket.Usuario disabled="" readonly="" class="disabled:border-none")
+          .campo
+            label.uppercase(for="Solucion") Descripción:
+            p.border-none(class="max-w-[34em]")=ticket.Descripcion.toLowerCase()
+          .campo
+            label.uppercase(for="Solucion") Solución:
+            if ticket.Solucion
+               p.border-none(class="max-w-[34em]")=ticket.Solucion.toLowerCase()
+            else
+              textarea.rounded-md(cols="30" rows="8" type="text" id="Solucion" name="Solucion" placeholder="Ingresa la solucion")= Solucion
+          if !successful
+            .campo.enviar  
+              input.bg-green-500.rounded-md(type="submit", value='Cerrar ticket')
+              
+

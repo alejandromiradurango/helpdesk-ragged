@@ -1,0 +1,21 @@
+extends layout 
+
+include mixins/crearTicket
+
+block content
+      #container.px-6
+        .flex.justify-between.items-center.w-full.border-b-2.border-gray-500.mb-3
+          h1.font-bold.text-3xl.py-4 #{nombrePagina}
+          a.p-2.text-white.bg-gray-500.flex.items-center.gap-2.font-bold.rounded-md(href="/tickets") Volver
+            i.fa-solid.fa-arrow-left
+
+        if errors 
+            each error in errors
+                .w-96.m-auto.bg-red-300.text-center.px-4.py-2.my-2.border-2.border-red-500.font-bold.text-red-800.uppercase.rounded-md #{error.texto}
+
+        if successful 
+            .w-96.m-auto.bg-green-300.text-center.px-4.py-2.my-2.border-2.border-green-500.font-bold.text-green-800.uppercase.rounded-md #{successful}
+
+        
+        +crearTicket(ticket)      
+

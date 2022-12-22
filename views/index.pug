@@ -1,0 +1,21 @@
+extend layout 
+block content
+
+    if noAuth
+        #errorLogin.absolute.rounded-md.top-16.left-0.right-0.bottom-0.m-auto.w-96.h-16.m-auto.bg-red-300.text-center.px-4.py-2.my-2.border-2.border-red-500.font-bold.text-red-800.uppercase #{noAuth}
+    
+    .flex.justify-center.items-center.gap-4(class="h-[80vh]")
+        if user.Tipo === 'TECNICO'
+            a.bg-gray-100.shadow-2xl.text-3xl.font-bold.p-24.rounded-md.flex.flex-col.gap-2.items-center(href="/usuarios" class="hover:scale-105")
+                i.fa-solid.fa-users
+                span Usuarios
+        a.bg-gray-100.shadow-2xl.text-3xl.font-bold.p-24.rounded-md.flex.flex-col.gap-2.items-center.transition-all(href="/tickets" class="hover:scale-105")
+            i.fa-solid.fa-ticket
+            span #{user.Tipo == 'TECNICO' ? 'Tickets' : 'Mis tickets'}
+        if user.Tipo === 'TECNICO'
+            a.bg-gray-100.shadow-2xl.text-3xl.font-bold.p-24.rounded-md.flex.flex-col.gap-2.items-center(href="#" class="hover:scale-105")
+                i.fa-solid.fa-cog
+                span Administración
+    if userLogged
+        h3.text-lg.text-center Iniciaste sesion como: 
+            b #{userLogged.Nombre} - #{userLogged.Tipo}

@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./email.css
+    body 
+        if user.Tipo === 'TECNICO'
+            h2 Ticket asignado exitosamente.
+            p El ticket 
+                b # #{ticket.Id}
+                | creado por el usuario
+                b #{ticket.Usuario}
+                | se te ha sido asignado.
+        else 
+            h2 Ticket 
+                b # #{ticket.Id} 
+                | generado exitosamente
+            p Un nuevo ticket ha sido creado por el usuario: 
+                b #{ticket.Usuario} 
+                | y esta listo para ser asignado a un tecnico.
+        p Problema o solicitud: #{ticket.Titulo}
+        p Descripción del ticket: #{ticket.Descripcion.toLowerCase()}
+        ul.font-bold Información del ticket
+            li 
+                b Tipo: 
+                | #{ticket.Tipo}
+            li 
+                b Categoría: 
+                | #{ticket.Categoria}
+            li 
+                b Subcategoría: 
+                | #{ticket.Subcategoria}
+            li 
+                b Urgencia: 
+                | #{ticket.Prioridad}

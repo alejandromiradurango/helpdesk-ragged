@@ -1,0 +1,31 @@
+extend layout 
+
+block content
+      #container.px-6
+        .flex.justify-between.items-center.w-full.border-b-2.border-gray-500
+          h1.font-bold.text-3xl.py-4.flex.gap-4.items-center #{nombrePagina}
+            i.fa-solid.fa-users
+          .flex.items-center.gap-4
+            input#searchUser.p-2.w-64.rounded-md.border-2.border-gray-500(type="text" placeholder="Buscar usuario...")
+            a.rounded-md.p-2.text-white.bg-green-500.flex.items-center.gap-2.font-bold(href="usuarios/nuevo-usuario") Crear usuario
+              i.fa-solid.fa-plus
+        ul#listUsers.overflow-y-auto.my-2(class="h-[75vh]")
+          each user in users 
+            li.bg-white.my-2.p-4.rounded-md.flex.items-center.justify-between
+              #info.flex.flex-col.gap-1
+                h2.font-bold(title= user.Usuario) #{user.Nombre}
+                h4 #{user.Correo}
+                small.hidden #{user.Tipo}
+                small.hidden #{user.Usuario}
+              #actions.flex.items-center.gap-4
+                  //- b #{user.Tipo}
+                  if (user.Tipo === 'USUARIO')
+                    i.fa-solid.fa-user.text-2xl.text-gray-700.opacity-50(title= user.Tipo)
+                  else 
+                    i.fa-solid.fa-cog.text-2xl.text-gray-700.opacity-50(title= user.Tipo)
+                  a(href=`/usuarios/editar/${user.Id}`)
+                    i.fa-solid.fa-pen.text-blue-600.cursor-pointer.text-2xl 
+                  if user.Estado === 'ACTIVO'
+                    i.fa-regular.fa-check-circle.cursor-pointer.text-2xl.cambiarEstado.activo(data-id= user.Id)
+                  else 
+                    i.fa-regular.fa-check-circle.cursor-pointer.text-2xl.cambiarEstado(data-id= user.Id)

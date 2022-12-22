@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;900&display=swap');
+
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+body *::-webkit-scrollbar {
+  width: 6px;
+}
+body *::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 216, 216);
+  border-radius: 40px;
+}
+body *::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+body * {
+  scrollbar-width: thin;
+}
+
+.vw-80 {
+    width: 80vw;
+}
+
+.w-600 {
+    width: 600px;
+}
+
+.campo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3em;
+    max-width: 48em;
+    margin: 1em auto;
+}
+
+.campo.small > input {
+    min-width: 22em;
+    margin: 0 auto;
+    text-align: center;
+    background: #fff;
+    border-color: #79797979;
+}
+
+.campo.enviar {
+    justify-content: center;
+}
+
+.campo.enviar > input {
+    min-width: 10em;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    background: #22c55e;
+    font-size: 1.1em;
+    margin: .5em 0 0;
+    transition: filter .3s ease, box-shadow .3s ease;
+}
+
+.campo.enviar > input:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+    box-shadow: 0px 3px 20px #22c55e36;
+}
+
+.campo > label {
+    font-weight: bold;
+}
+
+.campo > input, .campo > select, .campo > textarea, .campo > p{
+    background: transparent;
+    border: 1px solid #949494;
+    padding: .4em .7em;
+    min-width: 34em;
+}
+
+.campo > p.border-none {
+    border: none;
+}
+
+.bg-blueDark {
+    background-color: #0e2a66;
+}
+
+.cambiarEstado {
+    color: #D1D5DB;
+}
+
+.activo {
+    color: #16A34A;
+}
+
+#errorLogin {
+    transition: opacity .8s ease, transform 1s ease;
+}
+
+.fadeOut {
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+}

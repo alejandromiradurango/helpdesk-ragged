@@ -1,0 +1,4 @@
+node_modules
+vars.env
+.DS_Store
+mail.txt

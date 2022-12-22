@@ -1,0 +1,74 @@
+extends layout 
+
+block content
+      #container.px-6
+        .flex.justify-between.items-center.w-full.border-b-2.border-gray-500
+          h1.font-bold.text-3xl.py-4.flex.gap-4.items-center #{nombrePagina}
+            i.fa-solid.fa-ticket
+          .flex.items-center.gap-4
+            input#searchTickets.p-2.w-64.rounded-md.border-2.border-gray-500(type="text" placeholder="Buscar ticket...")
+            a.rounded-md.p-2.text-white.bg-green-500.flex.items-center.gap-2.font-bold(href="tickets/nuevo-ticket") Crear ticket
+              i.fa-solid.fa-plus
+
+        ul#listTickets.overflow-y-auto.my-2(class="h-[75vh] xl:h-[82vh]")
+          each ticket in tickets
+            li.relative.bg-white.my-2.pr-4.rounded-md.flex.items-center.justify-between   
+              #info.px-4.py-2.flex.flex-col.items-start
+                .flex.px-1.items-center.gap-2.text-gray-600
+                  i.fa-solid.fa-ticket.text-xl
+                  b # #{ticket.Id} 
+                    span.ml-1 |
+                  b= ticket.Tipo 
+                    span.ml-1 |
+                  #dates.font-bold.flex.items-center.gap-2
+                    i.fa-regular.fa-clock(title="Fecha de creación")
+                    span(title="Fecha de creación") #{ticket.FechaC} 
+                    if ticket.FechaF !== null
+                      | -
+                      i.fa-regular.fa-circle-check(title="Fecha de finalización")
+                      span(title="Fecha de finalización") #{ticket.FechaF}
+                h2.font-bold.text-xl= ticket.Titulo
+                if userLogged === 'TECNICO'
+                  .user.flex.items-center.gap-2.opacity-50.font-bold
+                    i.fa-solid.fa-user
+                    | #{ticket.Usuario}
+                .seeDescription.flex.items-center.gap-1.opacity-75.cursor-pointer.inline(data-element=`description${ticket.Id}`) Ver más
+                  i.fa-solid.fa-angle-down.text-blue-600.pointer-events-none
+                .description.px-2.py-1.hidden.w-full(class=`description${ticket.Id} max-w-[800px]`)
+                  h2.font-bold.uppercase.text-xl.mb-2 Descripción 
+                  p= ticket.Descripcion
+                  if ticket.Solucion
+                    h2.my-2.font-bold.uppercase.text-xl Solución
+                    p= ticket.Solucion
+              #interactive.flex.items-center.gap-4 
+                  .info-ticket.flex.flex-col(class="w-[250px]")
+                    span Ticket 
+                      b.status #{ticket.Estado}
+                      if ticket.Duracion 
+                        | : #{ticket.Duracion} dias
+                    if ticket.Tecnico
+                      span Tecnico: 
+                       b.supp= ticket.Tecnico
+                  if userLogged === 'TECNICO'
+                    if ticket.Tecnico === 'SoporteGeneral'
+                      .addSuppForm.flex.items-center.hidden
+                        select.border.border-2.border-gray-500.p-2.rounded-md(name="Tecnico")
+                          option(value="" hidden="" selected="") Seleccione un tecnico
+                          option(value="HernanRendon" ) Hernan Rendon
+                          option(value="DanielZora" ) Daniel Zora
+                          option(value="AlexanderAlvarez" ) Alexander Alvarez
+                        i.doPatch.fa-solid.fa-circle-check.text-green-500.text-2xl.ml-3.cursor-pointer(data-ticketId= ticket.Id)
+                        i.cancelPatch.fa-solid.fa-circle-xmark.text-red-500.text-2xl.ml-3.cursor-pointer
+                  #actions.flex.items-center.gap-4.min-w-32.justify-end
+                    if userLogged === 'TECNICO'
+                      if ticket.Tecnico === 'SoporteGeneral'
+                        if ticket.Estado !== 'CERRADO'
+                          i.fa-solid.fa-user-plus.cursor-pointer.text-2xl.addSupp
+                      if !ticket.Solucion
+                        a.flex.items-center.endTicket(href=`tickets/cerrar-ticket/${ticket.Id}`)
+                          i.fa-solid.fa-file-circle-check.text-2xl.text-green-500.cursor-pointer 
+                      a.flex.items-center(href=`tickets/editar/${ticket.Id}`)
+                        i.fa-solid.fa-pen.text-2xl.text-blue-500 
+                    if ticket.Estado !== 'CERRADO'
+                      i.fa-solid.fa-ban.cursor-pointer.text-2xl.text-red-600.cancelTicket(data-ticketId= ticket.Id)
+                  

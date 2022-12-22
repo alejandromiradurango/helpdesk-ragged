@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        include partials/headers
+    body.bg-blueDark
+        .h-screen.flex.flex-col.items-center.justify-center
+            if errors
+                #errorLogin.w-96.m-auto.bg-red-300.text-center.px-4.py-2.my-2.border-2.border-red-500.font-bold.text-red-800.uppercase #{errors}
+            .w-600.p-4.rounded-md.bg-gray-300
+                h1.text-2xl.text-center.font-bold.uppercase Iniciar sesión
+                form(action="/login" method="POST")
+                    .campo.small
+                        input.rounded-md.shadow-md(type="email" name="email" id="email" placeholder="Ingresa tu email" required="" value= email) 
+                    input(type="submit", value="Ingresar").w-32.m-auto.block.font-bold.bg-sky-600.text-white.py-2.cursor-pointer.uppercase.rounded-md
+    script(src="dist/bundle.js") 

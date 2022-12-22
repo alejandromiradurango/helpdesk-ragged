@@ -1,0 +1,31 @@
+mixin crearUsuario(user = {})
+
+    form.vw-80.bg-gray-100.shadow-xl.rounded-md.mx-auto.my-4.py-6(action=`/usuarios/nuevo-usuario/${user.Id || ''}` method="POST")
+        h3.text-center.text-2xl.font-bold.uppercase.mb-2 Información del usuario
+        .campo
+            label.uppercase(for="Usuario") Usuario:
+            input.rounded-md(type="text" id="Usuario" name="Usuario" placeholder="Ingresa el usuario" value= user.Usuario)
+        .campo
+            label.uppercase(for="Nombre") Nombre:
+            input.rounded-md(type="text" id="Nombre" name="Nombre" placeholder="Ingresa el nombre" value= user.Nombre)
+        .campo
+            label.uppercase(for="Correo") Correo:
+            input.rounded-md(type="email" id="Correo" name="Correo" placeholder="Ingresa el correo" value= user.Correo)
+        .campo
+            label.uppercase(for="Estado") Estado:
+            select.rounded-md(name="Estado" id="Estado") 
+                each estado in estados 
+                    if (estado === user.Estado)
+                        option(value=estado, selected="")= estado 
+                    else 
+                        option(value=estado)= estado
+        .campo
+            label.uppercase(for="Tipo") Tipo:
+            select.rounded-md(name="Tipo" id="Tipo")
+                each tipo in tipos 
+                    if (tipo === user.Tipo)
+                        option(value=tipo, selected="")= tipo 
+                    else 
+                        option(value=tipo)= tipo
+        .campo.enviar
+            input.bg-green-500.rounded-md(type="submit", value=`${user.Nombre ? 'Guardar' : 'Crear'}`)

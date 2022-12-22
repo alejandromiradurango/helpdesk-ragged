@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./email.css
+    body 
+        h2 Tu ticket # #{ticket.Id} ha sido cerrado correctamente
+        p 
+            | Hola 
+            b.capitalize #{user.Nombre.toLowerCase()}
+            | , tu ticket # #{ticket.Id} ha sido cerrado y resuelto correctamente por el tecnico: 
+            b #{ticket.Tecnico}.
+        p Tu solicitud fue 
+            b #{ticket.Titulo} 
+            | y especificaste lo siguiente: 
+            br
+            br
+            | #{ticket.Descripcion.toLowerCase()}
+        ul.font-bold Información del ticket
+            li 
+                b Tipo: 
+                | #{ticket.Tipo}
+            li 
+                b Categoría: 
+                | #{ticket.Categoria}
+            li 
+                b Subcategoría: 
+                | #{ticket.Subcategoria}
+            li 
+                b Urgencia: 
+                | #{ticket.Prioridad}
+        p La 
+            b solución 
+            | y el 
+            b proceso 
+            | que realizó el tecnico fue el siguiente: 
+            br
+            br
+            | #{ticket.Solucion.toLowerCase()}
