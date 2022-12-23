@@ -88,8 +88,6 @@ exports.newTicket = async (req, res) => {
         }
     }
 
-    console.log(errors);
-
     if (errors.length > 0) {
         res.render('nuevoTicket', {
             nombrePagina: 'Crear ticket',
@@ -108,7 +106,6 @@ exports.newTicket = async (req, res) => {
         insertSQL(`INSERT INTO Ticket (Tipo, Titulo, Descripcion, Categoria, Subcategoria, Prioridad, Estado, Tecnico, Usuario, FechaC) VALUES ( '${Tipo}', '${Titulo.toUpperCase()}', '${Descripcion.toUpperCase()}', '${Categoria}', '${Subcategoria}', '${Prioridad}', 'ABIERTO', 'SoporteGeneral', '${Usuario}', GETDATE())`)
 
         const result = await querySQL(`SELECT TOP 1 * FROM Ticket WHERE Usuario = '${Usuario}' ORDER BY Id DESC`);
-        console.log(result)
 
         //send email of verification
         await doEmail.sendEmail({

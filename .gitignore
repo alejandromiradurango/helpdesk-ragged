@@ -1,4 +1,4 @@
 node_modules
-vars.env
+.env
 .DS_Store
 mail.txt

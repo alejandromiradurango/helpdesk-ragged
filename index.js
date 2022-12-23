@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const passport = require('./config/passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-require('dotenv').config({ path: './vars.env'});
+require('dotenv').config();
 
 const app = express();
 

@@ -89,11 +89,8 @@ if (listTickets) {
                 const patcher = addSupp.getElementsByClassName('doPatch')[0];
                 const cancelPatcher = addSupp.getElementsByClassName('cancelPatch')[0];
                 patcher.addEventListener('click', (e) => {
-                    console.log('Click', e.target);
                     const id = e.target.dataset.ticketid
-                    console.log(select.value)
                     axios.patch(`${location.origin}/tickets/${id}/${select.value}`).then(res => {
-                        console.log(res)
                         if (res.status === 200) {
                             Swal.fire('Ticket asignado', res.data.text , 'success');
                             addSupp.remove();
@@ -122,7 +119,6 @@ if (listTickets) {
             cancelBtn.addEventListener('click', (e) => {
                 const icon = e.target;
                 const parent = icon.parentElement.parentElement;
-                console.log(parent)
                 const ticketId = icon.dataset.ticketid;
                 Swal.fire({
                     title: '¿Seguro que deseas cancelar este ticket?',
@@ -143,13 +139,10 @@ if (listTickets) {
                                 Swal.fire(text, `El ticket #${ticket.Id} del usuario ${ticket.Usuario} fue cancelado correctamente` , 'success');
                                 icon.remove();
                                 parent.getElementsByClassName('endTicket')[0].remove();
-                                console.log(parent)
                                 const changeStatus = parent.getElementsByClassName('info-ticket')[0].getElementsByClassName('status')[0];
                                 changeStatus.innerText = 'CERRADO';
                                 const parentDescription = parent.parentElement
-                                console.log(parentDescription);
                                 const changeDescription = parentDescription.getElementsByClassName('description')[0]
-                                console.log(changeDescription);
                                 changeDescription.classList.remove('hidden');
                                 changeDescription.innerHTML += `<h2 class="my-2 font-bold uppercase text-xl">Solución</h2><p>${ticket.Solucion}</p>`
                             } else {
