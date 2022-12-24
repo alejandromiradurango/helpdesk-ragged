@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 app.use('/', routes())
 
 const host = process.env.HOST;
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.listen(port, host, () => {
     console.log(`Servidor corriendo correctamente en el puerto: ${port}`)
