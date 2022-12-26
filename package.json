@@ -7,7 +7,6 @@
     "dev": "nodemon ./index.js",
     "css": "postcss tailwind.css -o public/dist/tailwind.css",
     "desarrollando": "concurrently \"npm run dev \" \"npm run watch \" \"npm run css \"",
-    "build": "node ./index.js",
     "start": "node index.js",
     "watch": "webpack --watch --mode development"
   },
