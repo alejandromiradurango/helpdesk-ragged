@@ -12,6 +12,12 @@ const cnx  = {
         trustedConnection: false,
         enableArithAbort: true,
         encrypt: false
+    },
+    pool: {
+        max: 10,
+        min: 0,
+        evictionRunIntervalMillis: 1000,
+        idleTimeoutMillis: 1000
     }
 };
 
