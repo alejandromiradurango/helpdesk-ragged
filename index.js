@@ -45,9 +45,10 @@ app.use((req, res, next) => {
 // listening routes
 app.use('/', routes())
 
+const host = process.env.HOST;
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+app.listen(port, host, () => {
     console.log(`Servidor corriendo correctamente en el puerto: ${port}`)
 })
 
